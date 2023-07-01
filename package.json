@@ -1,0 +1,38 @@
+{
+  "name": "simple-crud-api",
+  "version": "1.0.0",
+  "description": "Node.js CRUD API | The Rolling Scopes School | NodeJS 2023 Q2",
+  "main": "index.ts",
+  "scripts": {
+    "start:dev": "nodemon ./src/index.ts",
+    "start:prod": "webpack && node ./dist/bundle.js",
+    "start:multi": "cross-env NODE_MODE=balancer nodemon ./src/index.ts",
+    "test": "jest"
+  },
+  "keywords": [
+    "CRUD",
+    "API",
+    "NodeJS"
+  ],
+  "author": "Kirill Genin",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.3.2",
+    "@types/uuid": "^9.0.2",
+    "@types/webpack": "^5.28.1",
+    "@types/webpack-dev-server": "^4.7.2",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.43.0",
+    "nodemon": "^2.0.22",
+    "prettier": "^2.8.8",
+    "ts-loader": "^9.4.4",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.1.6",
+    "webpack": "^5.88.1",
+    "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "uuid": "^9.0.0"
+  }
+}
