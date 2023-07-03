@@ -16,10 +16,12 @@ class DataBase implements IDataBase {
   }
 
   public async addUser(body: IUserBody) {
-    this.users.push({
+    const user: IUserDataBase = {
       id: uuidv4(),
       ...body,
-    });
+    };
+    this.users.push(user);
+    return user;
   }
 
   public updateUser(id: string, body: Partial<IUserBody>) {
@@ -35,7 +37,9 @@ class DataBase implements IDataBase {
         }
       });
 
-      isUserExist ? resolve(true) : reject(new Error(ErrorMessage.USER_NOT_FOUND));
+      isUserExist
+        ? resolve(true)
+        : reject(new Error(ErrorMessage.USER_NOT_FOUND));
     });
   }
 
@@ -51,7 +55,9 @@ class DataBase implements IDataBase {
         return true;
       });
 
-      isUserExist ? resolve(true) : reject(new Error(ErrorMessage.USER_NOT_FOUND));
+      isUserExist
+        ? resolve(true)
+        : reject(new Error(ErrorMessage.USER_NOT_FOUND));
     });
   }
 }

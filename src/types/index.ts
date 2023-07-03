@@ -11,7 +11,7 @@ export interface IUserDataBase extends IUserBody {
 export interface IDataBase {
   getUsers: () => Promise<IUserDataBase[]>;
   getUser: (id: string) => Promise<IUserDataBase>;
-  addUser: (body: IUserBody) => Promise<void>;
+  addUser: (body: IUserBody) => Promise<IUserDataBase>;
   updateUser: (id: string, body: Partial<IUserBody>) => Promise<true>;
   removeUser: (id: string) => Promise<true>;
 }
