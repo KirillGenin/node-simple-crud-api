@@ -1,4 +1,4 @@
-import { IDataBase, IUserDataBase, IUserBody } from '../types';
+import { IDataBase, IUserDataBase, IUserBody, ErrorMessage } from '../types';
 import { v4 as uuidv4 } from 'uuid';
 
 class DataBase implements IDataBase {
@@ -11,7 +11,7 @@ class DataBase implements IDataBase {
   public getUser(id: string) {
     return new Promise<IUserDataBase>((resolve, reject) => {
       const user = this.users.find((user) => user.id === id);
-      user ? resolve(user) : reject(new Error('User not found!'));
+      user ? resolve(user) : reject(new Error(ErrorMessage.USER_NOT_FOUND));
     });
   }
 
@@ -35,7 +35,7 @@ class DataBase implements IDataBase {
         }
       });
 
-      isUserExist ? resolve(true) : reject(new Error('User not found!'));
+      isUserExist ? resolve(true) : reject(new Error(ErrorMessage.USER_NOT_FOUND));
     });
   }
 
@@ -51,7 +51,7 @@ class DataBase implements IDataBase {
         return true;
       });
 
-      isUserExist ? resolve(true) : reject(new Error('User not found!'));
+      isUserExist ? resolve(true) : reject(new Error(ErrorMessage.USER_NOT_FOUND));
     });
   }
 }
