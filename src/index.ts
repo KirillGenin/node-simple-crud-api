@@ -1,8 +1,13 @@
 import * as dotenv from 'dotenv';
+import { createServer as createHttpServer } from 'node:http';
+import { handlerServer } from './handler/handlerServer';
 
 dotenv.config();
 
-console.log(process.env.PORT);
-process.env.NODE_MODE === 'balancer'
-  ? console.log('Мульти режим с кластерами')
-  : console.log('Моно режим');
+const PORT = Number(process.env.PORT) || 4000;
+
+const server = createHttpServer(handlerServer);
+
+server.listen(PORT, () => {
+  console.log(`Server running to ${PORT}`);
+});
