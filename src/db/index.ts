@@ -36,22 +36,18 @@ class DataBase implements IDataBase {
     return userUpdate;
   }
 
-  public removeUser(id: string) {
-    return new Promise<true>((resolve, reject) => {
-      let isUserExist = false;
+  public async removeUser(id: string) {
+    let isUserExist = false;
 
-      this.users = this.users.filter((user) => {
-        if (user.id === id) {
-          isUserExist = true;
-          return false;
-        }
-        return true;
-      });
-
-      isUserExist
-        ? resolve(true)
-        : reject(new Error(ErrorMessage.USER_NOT_FOUND));
+    this.users = this.users.filter((user) => {
+      if (user.id === id) {
+        isUserExist = true;
+        return false;
+      }
+      return true;
     });
+    
+    return isUserExist;
   }
 }
 

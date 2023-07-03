@@ -139,6 +139,23 @@ export async function handlerServer(req: IncomingMessage, res: ServerResponse) {
           });
           break;
 
+        case HTTPMethods.DELETE:
+          try {
+            const isUserRemoved = await db.removeUser(userID);
+
+            if (!isUserRemoved) {
+              res.statusCode = 404;
+              res.end(ErrorMessage.USER_NOT_FOUND);
+            } else {
+              res.statusCode = 204;
+              res.end();
+            }
+          } catch {
+            res.statusCode = 500;
+            res.end();
+          }
+          break;
+
         default:
           res.statusCode = 400;
           res.end(ErrorMessage.INVALID_METHOD);

@@ -16,7 +16,7 @@ export interface IDataBase {
     id: string,
     body: Partial<IUserBody>
   ) => Promise<IUserDataBase | undefined>;
-  removeUser: (id: string) => Promise<true>;
+  removeUser: (id: string) => Promise<boolean>;
 }
 
 export enum HTTPMethods {
