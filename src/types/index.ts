@@ -12,7 +12,10 @@ export interface IDataBase {
   getUsers: () => Promise<IUserDataBase[]>;
   getUser: (id: string) => Promise<IUserDataBase | undefined>;
   addUser: (body: IUserBody) => Promise<IUserDataBase>;
-  updateUser: (id: string, body: Partial<IUserBody>) => Promise<true>;
+  updateUser: (
+    id: string,
+    body: Partial<IUserBody>
+  ) => Promise<IUserDataBase | undefined>;
   removeUser: (id: string) => Promise<true>;
 }
 

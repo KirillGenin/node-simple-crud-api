@@ -21,23 +21,19 @@ class DataBase implements IDataBase {
     return user;
   }
 
-  public updateUser(id: string, body: Partial<IUserBody>) {
-    return new Promise<true>((resolve, reject) => {
-      let isUserExist = false;
+  public async updateUser(id: string, body: Partial<IUserBody>) {
+    let userUpdate: IUserDataBase | undefined;
 
-      this.users = this.users.map((user) => {
-        if (user.id === id) {
-          isUserExist = true;
-          return { ...user, ...body };
-        } else {
-          return user;
-        }
-      });
-
-      isUserExist
-        ? resolve(true)
-        : reject(new Error(ErrorMessage.USER_NOT_FOUND));
+    this.users = this.users.map((user) => {
+      if (user.id === id) {
+        userUpdate = { ...user, ...body };
+        return userUpdate;
+      } else {
+        return user;
+      }
     });
+
+    return userUpdate;
   }
 
   public removeUser(id: string) {
