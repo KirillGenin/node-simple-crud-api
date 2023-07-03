@@ -15,3 +15,18 @@ export interface IDataBase {
   updateUser: (id: string, body: Partial<IUserBody>) => Promise<true>;
   removeUser: (id: string) => Promise<true>;
 }
+
+export enum HTTPMethods {
+  GET = 'GET',
+  POST = 'POST',
+  PUT = 'PUT',
+  DELETE = 'DELETE',
+}
+
+export enum ErrorMessage {
+  PAGE_NOT_FOUND = 'Page not found..',
+  INVALID_JSON = 'Invalid JSON body!',
+  INVALID_REQUEST_BODY = 'Request body does not contain required fields!',
+  USER_NOT_FOUND = 'User not found!',
+  SERVER_SIDE = 'Sorry, server side error!',
+}
