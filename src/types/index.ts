@@ -29,4 +29,5 @@ export enum ErrorMessage {
   INVALID_REQUEST_BODY = 'Request body does not contain required fields!',
   USER_NOT_FOUND = 'User not found!',
   SERVER_SIDE = 'Sorry, server side error!',
+  INVALID_METHOD = 'Invalid HTTP request method',
 }
