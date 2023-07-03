@@ -8,11 +8,8 @@ class DataBase implements IDataBase {
     return this.users;
   }
 
-  public getUser(id: string) {
-    return new Promise<IUserDataBase>((resolve, reject) => {
-      const user = this.users.find((user) => user.id === id);
-      user ? resolve(user) : reject(new Error(ErrorMessage.USER_NOT_FOUND));
-    });
+  public async getUser(id: string) {
+    return this.users.find((user) => user.id === id);
   }
 
   public async addUser(body: IUserBody) {

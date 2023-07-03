@@ -10,7 +10,7 @@ export interface IUserDataBase extends IUserBody {
 
 export interface IDataBase {
   getUsers: () => Promise<IUserDataBase[]>;
-  getUser: (id: string) => Promise<IUserDataBase>;
+  getUser: (id: string) => Promise<IUserDataBase | undefined>;
   addUser: (body: IUserBody) => Promise<IUserDataBase>;
   updateUser: (id: string, body: Partial<IUserBody>) => Promise<true>;
   removeUser: (id: string) => Promise<true>;
@@ -28,5 +28,6 @@ export enum ErrorMessage {
   INVALID_JSON = 'Invalid JSON body!',
   INVALID_REQUEST_BODY = 'Request body does not contain required fields!',
   USER_NOT_FOUND = 'User not found!',
+  INVALID_USER_ID = 'Invalid user ID!',
   INVALID_METHOD = 'Invalid HTTP request method',
 }

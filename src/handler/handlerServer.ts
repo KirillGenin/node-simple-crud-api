@@ -1,7 +1,13 @@
 import { IncomingMessage, ServerResponse } from 'http';
 import db from '../db';
-import { isApiPage, isApiPageWithId, isValidUser } from '../utils/utils';
+import {
+  isApiPage,
+  isApiPageWithId,
+  isValidUser,
+  getUserIdFromUrl,
+} from '../utils/utils';
 import { IUserBody, HTTPMethods, ErrorMessage } from '../types';
+import { validate } from 'uuid';
 
 export async function handlerServer(req: IncomingMessage, res: ServerResponse) {
   try {
@@ -62,12 +68,43 @@ export async function handlerServer(req: IncomingMessage, res: ServerResponse) {
             'Content-Type': 'application/json',
           });
           res.end(ErrorMessage.INVALID_METHOD);
+          break;
       }
     } else if (url && isApiPageWithId(url)) {
+      const userID = getUserIdFromUrl(url);
+
+      if (!validate(userID)) {
+        res.statusCode = 400;
+        res.end(ErrorMessage.INVALID_USER_ID);
+      }
+
+      switch (req.method) {
+        case HTTPMethods.GET:
+          try {
+            const user = await db.getUser(userID);
+
+            if (!user) {
+              res.statusCode = 404;
+              res.end(ErrorMessage.USER_NOT_FOUND);
+            } else {
+              res.writeHead(200, {
+                'Content-Type': 'application/json',
+              });
+              res.end(JSON.stringify(user));
+            }
+          } catch {
+            res.statusCode = 500;
+            res.end();
+          }
+          break;
+
+        default:
+          res.statusCode = 400;
+          res.end(ErrorMessage.INVALID_METHOD);
+          break;
+      }
     } else {
-      res.writeHead(404, {
-        'Content-Type': 'application/json',
-      });
+      res.statusCode = 404;
       res.end(ErrorMessage.PAGE_NOT_FOUND);
     }
   } catch (error) {
